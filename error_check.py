@@ -7,7 +7,10 @@ import time
 from datetime import datetime, timedelta
 
 # VARs
+#Configure here
 ADMINS = ["root"] # must be a list ex. ADMINS = ["root","admin"]
+LOGDIR = "/home/isztld/Desktop/Log" #Log directory
+#####
 DAY = datetime.now().strftime("%Y%m%d")
 ONEDAYAGO = int(DAY) - 1
 NOW = datetime.now().strftime("%Y-%m-%dT%H:%M")
