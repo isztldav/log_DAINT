@@ -7,10 +7,7 @@ import time
 from datetime import datetime, timedelta
 
 # VARs
-#Configure here
 ADMINS = ["root"] # must be a list ex. ADMINS = ["root","admin"]
-LOGDIR = "/home/isztld/Desktop/Log" #Log directory
-#####
 DAY = datetime.now().strftime("%Y%m%d")
 ONEDAYAGO = int(DAY) - 1
 NOW = datetime.now().strftime("%Y-%m-%dT%H:%M")
@@ -57,8 +54,8 @@ if str(H) <> "00":
 else:
 	for line in open(LOGDIR + "/messages-" + DAY):
 		parti = line.split(" ")
-		data0 = parti[1].split(".")
-		utile = data0[0][:-3]
+		data = parti[1].split(".")
+		utile = data[0][:-3]
 		data = utile.split("T")
 		data[1] = data[1][3:]
 		if data[0] == NOW[:-6] and data[1] == NOW[11:][:-3] or data[0] == ONEHOURAGO[:-6] and data[1] == ONEHOURAGO[11:][:-3]:
@@ -69,8 +66,8 @@ else:
 if str(H) <> "00":
 	for line in open(LOGDIR + "/console-" + DAY):
 		parti = line.split(" ")
-		data0 = parti[0].split(".")
-		utile = data0[0][:-3]
+		data = parti[0].split(".")
+		utile = data[0][:-3]
 		data = utile.split("T")
 		data[1] = data[1][3:]
 		if data[0] == NOW[:-6] and data[1] == NOW[11:][:-3] or data[0] == ONEHOURAGO[:-6] and data[1] == ONEHOURAGO[11:][:-3]:
@@ -79,8 +76,8 @@ if str(H) <> "00":
 else:
 	for line in open(LOGDIR + "/console-" + ONEDAYAGO):
 		parti = line.split(" ")
-		data0 = parti[0].split(".")
-		utile = data0[0][:-3]
+		data = parti[0].split(".")
+		utile = data[0][:-3]
 		data = utile.split("T")
 		data[1] = data[1][3:]
 		if data[0] == NOW[:-6] and data[1] == NOW[11:][:-3] or data[0] == ONEHOURAGO[:-6] and data[1] == ONEHOURAGO[11:][:-3]:
