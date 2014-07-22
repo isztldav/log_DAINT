@@ -48,28 +48,29 @@ def find_words(text, search):
 			if i == text[ii]:
 				return 1
 	return 0
+	
+def messages(line,pos):
+	parti = line.split(" ")
+	data = parti[pos].split(".")
+	utile = data[0][:-3]
+	data = utile.split("T")
+	data[1] = data[1][:-3]
+	if data[0] == NOW[:-6] and data[1] == NOW[11:][:-3] or data[0] == ONEHOURAGO[:-6] and data[1] == ONEHOURAGO[11:][:-3]:
+		return 1
+	else:
+		return 0
 
 # Search for killed jobs in messages-* for the last hour
 if str(H) <> "00":
 	for line in open(LOGDIR + "/messages-" + DAY):
-		parti = line.split(" ")
-		data = parti[1].split(".")
-		utile = data[0][:-3]
-		data = utile.split("T")
-		data[1] = data[1][:-3]
-		if data[0] == NOW[:-6] and data[1] == NOW[11:][:-3] or data[0] == ONEHOURAGO[:-6] and data[1] == ONEHOURAGO[11:][:-3]:
+		if messages(line, 1) == 1:
  			if find_words(['killed'], line) == 1:
   				#send_email("DAINT: messages errors last hour", line, ADMINS)
   				log.append(line)
   				n_err+=1
 else:
 	for line in open(LOGDIR + "/messages-" + DAY):
-		parti = line.split(" ")
-		data = parti[1].split(".")
-		utile = data[0][:-3]
-		data = utile.split("T")
-		data[1] = data[1][:3]
-		if data[0] == NOW[:-6] and data[1] == NOW[11:][:-3] or data[0] == ONEHOURAGO[:-6] and data[1] == ONEHOURAGO[11:][:-3]:
+		if messages(line, 1) == 1:
  			if find_words(['killed'], line) == 1:
   				#send_email("DAINT: messages errors last hour", line, ADMINS)
   				log.append(line)
@@ -82,24 +83,14 @@ if n_err <> 0:
 # Search for Xid & "Fallen of the bus" & "Lustre eviceted" errors
 if str(H) <> "00":
 	for line in open(LOGDIR + "/console-" + DAY):
-		parti = line.split(" ")
-		data = parti[0].split(".")
-		utile = data[0][:-3]
-		data = utile.split("T")
-		data[1] = data[1][:-3]
-		if data[0] == NOW[:-6] and data[1] == NOW[11:][:-3] or data[0] == ONEHOURAGO[:-6] and data[1] == ONEHOURAGO[11:][:-3]:
+		if messages(line, 0) == 1:
 			if find_words(['Xid','falle','evicted'], line) == 1:
 				#send_email("DAINT: console  errors last hour", line, ADMINS)
   				log.append(line)
   				n_err+=1
 else:
 	for line in open(LOGDIR + "/console-" + ONEDAYAGO):
-		parti = line.split(" ")
-		data = parti[0].split(".")
-		utile = data[0][:-3]
-		data = utile.split("T")
-		data[1] = data[1][:-3]
-		if data[0] == NOW[:-6] and data[1] == NOW[11:][:-3] or data[0] == ONEHOURAGO[:-6] and data[1] == ONEHOURAGO[11:][:-3]:
+		if messages(line, 0) == 1:
 			if find_words(['Xid','falle','evicted'], line) == 1:
 				#send_email("DAINT: console  errors last hour", line, ADMINS)
   				log.append(line)
