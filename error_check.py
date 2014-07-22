@@ -84,6 +84,7 @@ else:
 if n_err <> 0:
 	send_email("DAINT: messages errors last hour", log, ADMINS)
 	n_err = 0
+	log = []
 
 # Search for Xid & "Fallen of the bus" & "Lustre eviceted" errors
 if str(H) <> "00":
@@ -114,5 +115,6 @@ else:
 if n_err <> 0:
 	send_email("DAINT: console  errors last hour", log, ADMINS)
 	n_err = 0
+	log = []
 
 exit()
