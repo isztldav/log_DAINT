@@ -31,16 +31,9 @@ def send_email(SUBJECT,TEXT, TO):
 	# Prepare actual message
 	for i in TEXT:
 		msg=msg+i
-	message = """\
-From: %s
-To: %s
-Subject: %s
-
-%s
-	""" % (FROM, ", ".join(TO), SUBJECT, msg)
+	message = "From: %s\nTo: %s\nSubject: %s\n\n%s" % (FROM, ", ".join(TO), SUBJECT, msg)
 
 	# Send the mail
-
 	server = smtplib.SMTP(SERVER)
 	server.sendmail(FROM, TO, message)
 	server.quit()
